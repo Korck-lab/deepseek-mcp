@@ -118,7 +118,7 @@ On every commit it reads the commit message and:
 | `fix:` / `perf:` | `fix: opencode pty wrapper` | patch |
 | anything else | `docs:`, `chore:`, `test:`, `refactor:` | none |
 
-`package.json` (and `package-lock.json`) are updated and included in the commit; a `post-commit` hook then creates an annotated tag `vX.Y.Z`. Amends, squashes, and merge commits never re-bump. Run `npm version` manually at any time to override.
+After the commit is created, a `post-commit` hook reads the real message from `COMMIT_EDITMSG` (the message is not available earlier — `pre-commit` runs before it exists), bumps `package.json` (+`package-lock.json`), amends the commit so the bump is included, then creates an annotated tag `vX.Y.Z`. Merge commits never re-bump; amends do re-bump (tag already exists, so it just skips). Run `npm version` manually at any time to override.
 
 ## Security
 
