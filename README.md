@@ -67,6 +67,27 @@ HARNESS_CMD_OPENCODE=script -q /dev/null opencode run
 }
 ```
 
+## Interactive installer
+
+Register the server with Claude Code, Codex, and/or opencode — no manual config editing:
+
+```bash
+npm run install:cli
+```
+
+Prompts ask which CLI(s) to install and the scope:
+
+- **global** — your user config (`~/.claude.json`, `~/.codex/config.toml`, `~/.config/opencode/opencode.json`)
+- **project** — local to this repo (Claude `--scope local`, `.codex/config.toml`, `./opencode.json`; gitignored)
+
+Optionally embeds `DEEPSEEK_API_KEY` into the client config (recommended for global scope, so the server works outside this repo). Scriptable:
+
+```bash
+npm run install:cli -- --clis claude,codex,opencode --scope global --embed key --yes
+```
+
+Flags: `--clis a,b,c`, `--scope global|project`, `--embed key|skip`, `--yes`.
+
 ## Security
 
 - **The bridge is disabled until you allowlist hosts.** With `HARNESS_ALLOW_HOSTS` empty, `use_harness` errors.
