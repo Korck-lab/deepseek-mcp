@@ -4,6 +4,21 @@ An [MCP](https://modelcontextprotocol.io) server that bridges CLI harnesses to t
 
 ## Quickstart
 
+One-shot install straight from the repo (clone lives in `~/.deepseek-mcp`, override with `DEEPSEEK_MCP_HOME`). Fresh installs prompt for your API key — it opens the [key page](https://platform.deepseek.com/api_keys) and reads a hidden paste. Updates keep your existing `.env` untouched:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Korck-lab/deepseek-mcp/main/scripts/install.sh | bash
+```
+
+Prefer reviewing the script first, or hit terminal weirdness (no controlling tty: SSH without `-t`, CI)? Download then run — stdin stays yours, no pipe tricks:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Korck-lab/deepseek-mcp/main/scripts/install.sh -o /tmp/deepseek-mcp-install.sh
+bash /tmp/deepseek-mcp-install.sh
+```
+
+Manual clone:
+
 ```bash
 git clone https://github.com/Korck-lab/deepseek-mcp
 cd deepseek-mcp

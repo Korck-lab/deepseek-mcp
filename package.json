@@ -1,6 +1,6 @@
 {
   "name": "deepseek-mcp",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "MCP server bridging CLI harness callers to the DeepSeek API",
   "type": "module",
   "bin": {
