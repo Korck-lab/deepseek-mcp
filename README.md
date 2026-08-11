@@ -2,6 +2,19 @@
 
 An [MCP](https://modelcontextprotocol.io) server that bridges CLI harnesses to the [DeepSeek API](https://platform.deepseek.com). Callers (Claude Code, Codex, opencode, or any MCP client) connect over stdio and get DeepSeek chat completions — plus the option to hand work back to a local harness session.
 
+## Quickstart
+
+```bash
+git clone https://github.com/Korck-lab/deepseek-mcp
+cd deepseek-mcp
+npm install
+npm run build
+cp .env.example .env        # paste your DEEPSEEK_API_KEY
+npm run install:cli         # interactive: pick claude/codex/opencode + scope
+```
+
+Then run `claude mcp list`, `codex mcp list`, or `opencode mcp list` to confirm the `deepseek` server shows **Connected**, and use it from that client. See [Interactive installer](#interactive-installer) for flags and scope details.
+
 ## Features
 
 - **Chat completions** — OpenAI-style `messages` → DeepSeek. Supports `deepseek-v4-flash` / `deepseek-v4-pro` reasoning models, including `reasoning_content`.
@@ -87,6 +100,25 @@ npm run install:cli -- --clis claude,codex,opencode --scope global --embed key -
 ```
 
 Flags: `--clis a,b,c`, `--scope global|project`, `--embed key|skip`, `--yes`.
+
+## Auto-versioning
+
+Local git hooks bump the version and tag releases automatically from [conventional commit](https://www.conventionalcommits.org) messages — no manual version edits, no CI needed.
+
+```bash
+npm run hooks:install        # git config core.hooksPath .githooks (per-repo)
+```
+
+On every commit it reads the commit message and:
+
+| Commit type | Example | Bump |
+| --- | --- | --- |
+| breaking | `feat!: drop node 18`, or `BREAKING CHANGE` in body | major |
+| `feat:` | `feat: add installer` | minor |
+| `fix:` / `perf:` | `fix: opencode pty wrapper` | patch |
+| anything else | `docs:`, `chore:`, `test:`, `refactor:` | none |
+
+`package.json` (and `package-lock.json`) are updated and included in the commit; a `post-commit` hook then creates an annotated tag `vX.Y.Z`. Amends, squashes, and merge commits never re-bump. Run `npm version` manually at any time to override.
 
 ## Security
 

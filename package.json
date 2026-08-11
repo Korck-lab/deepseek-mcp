@@ -1,6 +1,6 @@
 {
   "name": "deepseek-mcp",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "MCP server bridging CLI harness callers to the DeepSeek API",
   "type": "module",
   "bin": {
@@ -14,7 +14,8 @@
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
     "test": "node scripts/smoke.mjs",
-    "install:cli": "node scripts/install.mjs"
+    "install:cli": "node scripts/install.mjs",
+    "hooks:install": "git config core.hooksPath .githooks"
   },
   "engines": {
     "node": ">=20"
